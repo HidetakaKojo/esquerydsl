@@ -26,6 +26,7 @@ const (
 	Nested
 	NestedQuery
 	HasChild
+	MatchPhrase
 )
 
 // QueryTypeErr is a custom err returned if we are trying to stringify
@@ -50,6 +51,7 @@ func (qt QueryType) String() (string, error) {
 		"nested",
 		"nested_query",
 		"has_child",
+		"match_phrase",
 	}
 	if int(qt) > len(convs) {
 		return "", &QueryTypeErr{typeVal: qt}

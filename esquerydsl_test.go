@@ -87,10 +87,15 @@ func TestAndQuery(t *testing.T) {
 				Value: "some-long-key-id-value",
 				Type:  Match,
 			},
+			{
+				Field: "some_index_id",
+				Value: "some-long-key-id-value",
+				Type:  MatchPhrase,
+			},
 		},
 	})
 
-	expected := `{"query":{"bool":{"must":[{"match":{"some_index_id":"some-long-key-id-value"}}]}},"sort":[{"id":"asc"}]}`
+	expected := `{"query":{"bool":{"must":[{"match":{"some_index_id":"some-long-key-id-value"}},{"match_phrase":{"some_index_id":"some-long-key-id-value"}}]}},"sort":[{"id":"asc"}]}`
 	if string(body) != expected {
 		t.Errorf("\nWant: %q\nHave: %q", expected, string(body))
 	}
